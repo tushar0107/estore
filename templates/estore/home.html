@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- main block for home page -->
+
+{% block content %}
+
+<main>
+	<!-- banner -->
+	<div id="page-banner-container">
+		<div class="banner">
+			<img src="{% static 'estore/images/banner1.jpg' %}" alt="" class="banner-img">
+			<img src="{% static 'estore/images/banner1.jpg' %}" alt="" class="banner-img">
+			<img src="{% static 'estore/images/banner1.jpg' %}" alt="" class="banner-img">
+		</div>
+	</div>
+
+	<!-- new arrivals -->
+	<div id="new-arrivals" class="container">
+		<h3 class="center-text">New Arrivals</h3>
+		<div class="items-list flex-item flex-start">
+			{% for i in items %}
+			<a href="#" class="item">
+				<div class="item-img">
+					<img src="{% static 'estore/images/formal-fashion.jpg' %}" alt="">
+				</div>
+				<div class="item-content">
+					<p class="item-name">
+						Item Name in short
+					</p>
+					<p class="item-price">
+						<strong>$674.69</strong>
+					</p>
+					<button class="btn-black">
+						<img src="{% static 'estore/images/cart.png' %}" class="tiny-img" alt="">
+						<span>Add to cart</span>
+					</button>
+				</div>
+			</a>
+			{% endfor %}
+		</div>
+	</div>
+
+	<!-- home featured products -->
+	<div id="featured-products-container">
+		<h3 class="center-text">New in Categories</h3>
+		<div id="featured-products" class="container">
+			<a href="/product/?categories=womens" class="featured-product-card">
+				<img src="{% static 'estore/images/fashion-women.jpg' %}" class="featured-product-img" alt="">
+				<div class="featured-text">
+					<span>Womens</span>
+				</div>
+			</a>
+			<a href="/product/?categories=mens" class="featured-product-card">
+				<img src="{% static 'estore/images/fashion-men.jpeg' %}" class="featured-product-img" alt="">
+				<div class="featured-text">
+					<span>Mens</span>
+				</div>
+			</a>
+			<a href="/product/?categories=kids" class="featured-product-card">
+				<img src="{% static 'estore/images/fashion-kid.jpeg' %}" class="featured-product-img" alt="">
+				<div class="featured-text">
+					<span>Kids</span>
+				</div>
+			</a>
+		</div>
+	</div>
+</main>
+
+{% endblock %}
+
+<!-- footer block from footer.html -->
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}

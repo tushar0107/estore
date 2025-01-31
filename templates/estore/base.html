@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{% load static %}
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{% static 'estore/css/style.css' %}">
+	<script type="text/javascript" src="{% static 'estore/js/index.js' %}"></script>
+
+	<title>Document</title>	
+</head>
+<body>
+	<!-- from header.html -->
+	{% include 'header.html' %}
+
+	{% block content %}
+	{% endblock %}
+
+
+	<!-- for footer block  -->
+	 <!-- to add footer on selected page add the include block tag for footer in that page -->
+	{% block footer %}
+	{% endblock %}
+	
+</body>
+</html>
