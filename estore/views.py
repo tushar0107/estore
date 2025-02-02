@@ -30,3 +30,23 @@ def index(request):
 
 def page(request):
 	return render(request,'page.html',context={'page':'second page'})
+
+def product_list(request):
+    query = request.GET.get('product', '')
+    category = request.GET.get('categories', '')
+    
+    products = Product.objects.all()
+    
+    if query:
+        products = products.filter(name__icontains=query)
+    if category:
+        products = products.filter(category__name__icontains=category)
+        
+    return render(request, 'product_list.html', {'products': products})
+
+def product_detail(request, slug):
+    try:
+        product = Product.objects.get(slug_field=slug)
+        return render(request, 'product_detail.html', {'product': product})
+    except Product.DoesNotExist:
+        return render(request, '404page.html')

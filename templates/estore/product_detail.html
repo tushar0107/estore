@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main id="view-product">
+    <div id="product-view-container" class="container">
+        <div id="product-image">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        </div>
+        
+        <div id="product-desc">
+            <h2>{{ product.name }}</h2>
+            <h3>{{ product.brand }}</h3>
+            <h2 class="price">${{ product.price }}</h2>
+            
+            <div id="description">
+                <p>{{ product.desc }}</p>
+            </div>
+            <button id="descShowBtn" onclick="showDesc()">Show more</button>
+            <button id="descHideBtn" onclick="hideDesc()">Show less</button>
+
+            <div id="action-btns">
+                <button class="cart-btn-outline" onclick="addToCart('{{product.id}}', '{{product.name}}', '{{product.price}}')">
+                    <img src="{% media 'estore/images/cart.png' %}" class="tiny-img" alt="">
+                </button>
+                <button class="btn" id="buy-now">Buy Now</button>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

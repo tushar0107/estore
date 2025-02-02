@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <div class="container">
+        <div class="product-count">
+            <h3>{{ products|length }} Products found</h3>
+        </div>
+        
+        <div id="products-container">
+            {% for product in products %}
+            <a href="/product/{{ product.slug_field }}" class="product-card">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <div class="product-details">
+                    <span class="brand">{{ product.brand }}</span>
+                    <span class="name">{{ product.name }}</span>
+                    <span class="price">${{ product.price }}</span>
+                </div>
+            </a>
+            {% empty %}
+            <div class="not-found">
+                <h2>No products found</h2>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

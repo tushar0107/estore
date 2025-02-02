@@ -83,6 +83,9 @@ section.site-content{
 #footer .logo {
   padding: 1rem 1.5rem;
 }
+#footer .logo.content {
+  padding: 1rem 0;
+}
 .icon-img {
   width: 36px;
   padding: 0.5rem;
@@ -352,6 +355,7 @@ h2 {
 
 .center-text{
   text-align: center;
+  margin: 3rem auto;
 }
 img.tiny-img{
   width: 20px;
@@ -367,6 +371,7 @@ img.tiny-img{
   padding: 1rem;
   overflow-x: auto;
   scrollbar-width: none;
+  scroll-snap-type: x mandatory;
 }
 .flex-start{
   justify-content: flex-start;
@@ -376,6 +381,7 @@ img.tiny-img{
   padding: .5rem;
   box-shadow: 0px 0px 7px 0px #0000005d;
   border-radius: 8px;
+  scroll-snap-align: center;
 }
 .items-list .item-img img{
   width: 100%;

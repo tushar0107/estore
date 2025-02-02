@@ -37,7 +37,7 @@ User.add_to_class("__str__", get_first_name)
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True,null=True,blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -53,7 +53,7 @@ class Product(models.Model):
     desc = models.TextField()
     brand = models.CharField(max_length=30,default=None)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    image = models.ImageField(upload_to='products/', default=None)
+    image = models.ImageField(upload_to='estore/products/', default=None)
     category = models.ManyToManyField(Category)
     slug_field = models.SlugField(max_length=300,null=True,blank=True)
 

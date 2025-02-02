@@ -28,7 +28,7 @@ SECRET_KEY = os.getenv('SECURITY_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -77,17 +77,24 @@ WSGI_APPLICATION = 'store.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
+debug_config = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR,'db.sqlite3'),
+    }
+}
+prod_config = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'estore',
-        'USER': 'postgres',
-        'PASSWORD': 'bPsoHEIBgYa4BjUp',
-        'HOST': 'devoutly-natural-waterbear.data-1.use1.tembo.io',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
         'PORT': '5432'
     }
 }
 
+DATABASES = debug_config if DEBUG else prod_config
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
