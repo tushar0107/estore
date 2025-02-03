@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+<body>
+{% load static %}
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+    <h2>Checkout</h2>
+    
+  
+
+
+    <form action="/confirm-order/" method="post" id="checkout-confirm-form">
+        {% csrf_token %}
+        <h4>Enter Delivery address</h4>
+        <input type="text" name="plot-no" id="plot-no" value="" placeholder="Plot No.">
+        <input type="text" name="strt-address" id="strt-address" value="" placeholder="Street Address">
+        <h3>Total Order Amount:</h3>
+        <input type="text" name="total_price" value="{{total_amount}}" readonly>
+        <sub>* If you want to complete Payment, please select "Debit/Credit" or "UPI". <br>You can later complete the Payment from the order history in your profile section. </sub>
+        <select name="payment_mode" id="payment_mode">
+            <option value="">Select Payment Mode</option>
+            <option value="1">Cash on Delivery</option>
+            <option value="2">Debit/Credit Card</option>
+            <option value="3">UPI</option>
+        </select>
+        
+
+    <div id="checkout">
+                <div id="checkout-actions">
+                    <button type="button" class="cancel-btn btn" onclick=history.back()>Cancel</button>
+                    <button type="submit" class="btn" id="checkout-btn btn-blue">Confirm Order</button>
+                </div>
+    </div>
+
+    
+</form>
+
+    <script>
+        // const products = document.getElementsByClassName('products');
+        // const quantity = document.getElementsByClassName('quantity');
+        // const confirmBtn = document.getElementById("checkout-btn");
+        // const cancelModal = document.getElementById("cancel-modal");
+        // const modal = document.getElementById('confirm-modal');
+        // const form = document.getElementById('order-form');
+        // var cart = [];
+        
+        // confirmBtn.addEventListener('click', function(){
+        //     modal.style.display = 'block';
+        //     document.getElementById('checkout-confirm-form').style.filter = 'blur(4px)';
+        //     for(let i=0; i<products.length;i++){
+        //         let product = {};
+        //         product.id = products[i].value;
+        //         product.quantity = quantity[i].value;
+        //         cart = [...cart,{...product}];
+        //     }
+        //     console.log(cart);
+        // });
+        // cancelModal.addEventListener('click', function(){
+        //     modal.style.display = 'none';
+        //     document.getElementById('checkout-confirm-form').style.filter = 'none';
+        //     cart = [];
+        // })
+
+        // function submitConfirmation(user){
+        //     console.log('Submitting checkout', user, cart);
+        //     var xhr = new XMLHttpRequest();
+        //     let cookie = document.cookie;
+        //     var csrfToken = localStorage.getItem('csrfToken');
+
+        //     var formData = new FormData();
+        //     formData.append('csrfmiddlewaretoken',csrfToken);
+        //     formData.append('user_id',user);
+        //     formData.append('cart',JSON.stringify(cart));
+            
+        //     xhr.onreadystatechange = function(){
+        //             if (xhr.readyState === XMLHttpRequest.DONE){
+        //                 if( xhr.status === 200){
+        //                     console.log(xhr.responseText);
+        //                 }else{
+        //                     console.error('Error', xhr.status);
+        //                 }
+        //             }
+        //         };
+
+        //         xhr.open('POST', '/create-order-item/', true);
+        //         xhr.send(formData);
+        //         cart=[];
+        // }
+    </script>
+    
+    {% else %}
+    <h2>Please Login</h2>
+    {% endif %}
+
+    {% endblock %}

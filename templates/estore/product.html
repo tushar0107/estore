@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block description %} {{product.name}} {% endblock %}
+{% block keywords %} {{product.name}} {% endblock %}
+
+{% block title %}{{product.name}}{% endblock %}
+
+{% block content %}
+
+<main id="view-product">
+
+    <div id="product-view-container">
+        <div id="product-image">
+            <img src="/media/{{product.image}}" alt="">
+        </div>
+        <div id="product-desc">
+            <h3>{{product.name}}</h3>
+            <p id="description">{{product.desc}}</p>
+            <strong id="descShowBtn"><a href="javascript:void(0)" onclick=showDesc()>Read More.. <i class="fa fa-caret-down"></i></a></strong>
+            <strong id="descHideBtn"><a href="javascript:void(0)" onclick=hideDesc()>Hide More.. <i class="fa fa-caret-up"></i></a></strong>
+        </div>
+        
+    </div>
+    <div id="action-btns">
+        <button class="product-btn btn btn-blue">{{product.price}} /-</button>
+        <button class="cart-btn-outline" onclick="submitCart('{{user.id}}','{{product.id}}')"><i class="fa-solid fa-cart-plus"></i></button>
+    </div>
+    
+</main>
+
+<script>
+    function submitCart(user='None',product_id){
+                if(user!='None'){
+                    console.log('submitting form with', user, product_id);
+                    var xhr = new XMLHttpRequest();
+                    let cookie = document.cookie;
+                    var csrfToken = localStorage.getItem('csrfToken');
+
+                    var formData = new FormData();
+                    formData.append('csrfmiddlewaretoken',csrfToken);
+                    formData.append('user_id',user);
+                    formData.append('product_id',product_id);
+
+                    xhr.onreadystatechange = function(){
+                        if (xhr.readyState === XMLHttpRequest.DONE){
+                            if( xhr.status === 200){
+                                alert(`${JSON.parse(xhr.responseText).message}`);
+                            }else{
+                                console.error('Error', xhr.status);
+                            }
+                        }
+                    };
+
+                    xhr.open('POST', '/update-cart/', true);
+                    xhr.send(formData);
+                }else{
+                    alert('Please Login');
+                }
+            }
+</script>
+
+ 
+{% endblock %}

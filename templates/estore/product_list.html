@@ -1,29 +1,75 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 
+{% block description %} {{'description'}} {% endblock %}
+{% block keywords %} {{'keywords'}} {% endblock %}
+
+{% block title %}{{search}}{% endblock %}
+
 {% block content %}
-<main>
-    <div class="container">
-        <div class="product-count">
-            <h3>{{ products|length }} Products found</h3>
-        </div>
-        
-        <div id="products-container">
-            {% for product in products %}
-            <a href="/product/{{ product.slug_field }}" class="product-card">
-                <img src="{{ product.image.url }}" alt="{{ product.name }}">
-                <div class="product-details">
-                    <span class="brand">{{ product.brand }}</span>
-                    <span class="name">{{ product.name }}</span>
-                    <span class="price">${{ product.price }}</span>
-                </div>
-            </a>
-            {% empty %}
-            <div class="not-found">
-                <h2>No products found</h2>
+
+    <!-- products here -->
+    <h4 class="product-count">{{num_of_products}} products for '{{search}}'</h4>
+    {% if products %}
+    <div id="products-container">
+        {% for product in products %}
+
+        <a href="/product/{{product.get_absolute_url}}"  class="product-card">
+            <img src="/media/{{product.image}}" alt="{{product.image}}">
+            <div class="product-details">
+                <span class="price">
+                    {{product.price}}/-
+                </span>
+                <span class="product-name">
+                    {{product.name|truncatewords_html:10}}
+                </span>
+
             </div>
-            {% endfor %}
-        </div>
+            <span class="like-btn"><img src="/static/images/{{ 'heart.png' }}" alt=""></span>
+        </a>
+
+        {% endfor %}
     </div>
-</main>
+        {% else %}
+        <h3 class="not-found">Ohh!! We currently don't have any products for '{{search}}'.</h3>
+        {% endif %}
+ 
+    <script>
+
+        
+            function submitCart(user='None',product_id){
+                if(user!='None'){
+                    console.log('submitting form with', user, product_id);
+                    var xhr = new XMLHttpRequest();
+                    var csrfToken = localStorage.getItem('csrfToken');
+
+                    var formData = new FormData();
+                    formData.append('csrfmiddlewaretoken',csrfToken);
+                    formData.append('user_id',user);
+                    formData.append('product_id',product_id);
+
+                    xhr.onreadystatechange = function(){
+                        if (xhr.readyState === XMLHttpRequest.DONE){
+                            if( xhr.status === 200){
+                                alert(`${JSON.parse(xhr.responseText).message}`);
+                            }else{
+                                console.error('Error', xhr.status);
+                            }
+                        }
+                    };
+
+                    xhr.open('POST', '/update-cart/', true);
+                    xhr.send(formData);
+                }else{
+                    alert('Please Login');
+                }
+            }
+
+            function gotoProduct(id){
+                console.log('sgdgd',id);
+                window.location.href= `/product/${id}`;
+            }
+        
+    </script>
+ 
 {% endblock %}

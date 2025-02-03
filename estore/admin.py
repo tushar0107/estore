@@ -4,11 +4,13 @@ from django.contrib import admin
 
 from .models import *
 from django.contrib.auth.models import *
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 # Register your models here.
+admin.site.unregister(User)
 
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ['user','phone','city']
+    list_display = ['user','phone','city','state']
     list_per_page = 20
 
 class ProductAdmin(admin.ModelAdmin):
@@ -32,6 +34,14 @@ class OrderAdmin(admin.ModelAdmin):
 class PaymentAdmin(admin.ModelAdmin):
     list_display = ['order','payment_method','transaction_id','payment_status']
     list_per_page = 20
+
+class CustomerProfile(admin.StackedInline):
+    model = Customer
+
+@admin.register(User)
+class UserAdmin(BaseUserAdmin):
+    list_display = ['first_name','last_name']
+    inlines = (CustomerProfile,)
 
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Product,ProductAdmin)

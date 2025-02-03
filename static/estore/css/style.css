@@ -292,6 +292,58 @@ h2 {
   text-transform: uppercase;
   transform: translate(-50%, -50%);
 }
+.mid-page-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin: 2rem auto;
+  max-width: 900px;
+}
+.mid-page-banner .left-image {
+  max-width: 400px;
+  margin: 0 auto;
+}
+.left-image img{
+  width: 100%;
+}
+.mid-page-banner .right-content{
+  flex: 1 1 400px;
+  text-align: center;
+  font-size: 1.5rem
+}
+.mid-page-banner .right-content .fancy-head-title span{
+  display: block;
+  font-size: 60px;
+  font-weight: 900;
+  position: relative;
+}
+.mid-page-banner .right-content .fancy-head-title span.text-1 {
+  color: transparent;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  top: 30px;
+  right: 100px;
+}
+.mid-page-banner .right-content .fancy-head-title span.text-2{
+  left: 30px;
+}
+.btn-black {
+  border: 2px solid black;
+  color: black;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  border-radius: 0.4rem;
+  transition: background-color .4s ease;
+}
+.btn-black:hover{
+  color: var(--hoverColor);
+  background-color: var(--primaryfontcolor);
+  outline: 2px solid var(--primaryfontcolor);
+  border: 2px solid var(--hoverColor);
+}
+
 /* footer signup */
 #footer {
   width: 100%;

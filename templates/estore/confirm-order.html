@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/css/style.css' %}">
+    <script type="text/javascript" src="{% static '/js/index.js' %}"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- header -->
+    <div id="header">
+        <div class="logo">{% if user.is_authenticated %}{{user.username}}{% else %}{{logo}}{% endif %}</div>
+        <div id="mob-nav">
+            <ul>
+                <li><a href="/logout"><img src="{% static '/images/logout.png' %}" alt="logout" class="icon-img search"></a></li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    {% if user.is_authenticated %}
+
+    <h2>confirm order</h2>
+
+    
+
+        <h3>{{order_item.product.name}}</h3>
+        <span>{{order_item.quantity}}</span>
+        <span>{{order_item.total_amount}}</span>
+
+    {% endif %}
+
+</body>
+</html>

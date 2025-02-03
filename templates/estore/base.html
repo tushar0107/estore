@@ -3,11 +3,18 @@
 <head>
 	{% load static %}
 	<meta charset="UTF-8">
+    <meta name="description" content="{% block description %} {% endblock %}">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="{% static 'estore/css/style.css' %}">
-	<script type="text/javascript" src="{% static 'estore/js/index.js' %}"></script>
+	<meta property="og:title" content="{{product.name}}" />
+    <meta property="og:image" content="https://127.0.0.1:8001/media/{{product.image}}" />
+    <link rel="shortcut icon" href="{% static '/images/favicon.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'estore/css/style.css' %}">
+	<link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="{% static 'estore/js/index.js' %}"></script>
 
-	<title>Document</title>	
+	<title>{% block title %} {% endblock %}</title>	
 </head>
 <body>
 	<!-- from header.html -->

@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}    
+   
+    {% if user.is_authenticated %}
+        <div id="profile-container">
+            <div id="profile-head">
+                <img src="{% static 'estore/images/user.png' %}" alt="profile" id="profile-img"/>
+            </div>
+            <div id="profile-card">
+                <h2>{{user.first_name}} {{user.last_name}}</h2>
+                <h2>{{user.username}}</h2>
+            </div>
+        </div>
+        <div id="user-details">
+            <address><strong>Address: </strong>{{customer.plot_no}}, {{customer.streetaddr}}, {{customer.city}}-{{customer.pincode}}</address>
+        </div>
+        <div id="order-details">
+            <h4>Your Orders:</h4>
+            {%for order in orders%}
+            <div class="order-card">
+                Order Delivering at:
+                <address>
+                    {{order.delivery_address}}
+                </address>
+                <p>
+                    Total Price: <strong>{{order.total_price}}/-</strong>
+                </p>
+                <p>
+                    Payment: <strong>{{order.payment_mode}}</strong>  Payment status: <strong>{{order.payment_status}}</strong>
+                </p>
+                <p>
+                    Order status: <strong>{{order.order_status}}</strong>
+                </p>
+
+            </div>
+
+            {% endfor %}
+            
+        </div>
+    {% else %}
+           
+            <div id="login-modal">
+                <h3>Login</h3>
+                <form action="/login/" method="post">
+                    {%for message in messages%}
+                    <span>{{message}}</span>
+                    {% endfor %}
+                    {% csrf_token %}
+                    <input type="number" name="username" placeholder="Enter mobile" required/>
+                    <label for="password" class="password-toggle">
+                        <input type="password" name="password" id="password" class="password input" placeholder="Enter Password" required/>
+                        <img src="{% static 'estore/images/view.png' %}" alt="" class="icon-img view" id="pass-eye" onclick=togglePassword(false)>
+                        <img src="{% static 'estore/images/hide.png' %}" alt="" class="icon-img hide" id="pass-hide" onclick=togglePassword(true)>
+                    </label>
+                    <button type="submit" class="btn submit btn-blue">Login</button>
+                    <h3>OR</h3>
+                    <button type="button" class="sign-up-btn btn btn-blue" id="sign-up-show">Sign Up</button>
+                </form>
+            </div>
+
+    {% endif %}
+    <div id="register-modal">
+        <h3>Sign Up</h3>
+        <form action="/register/" method="post">
+            {% csrf_token %}
+            <input type="text" name="first_name" placeholder="First Name" required>
+            <input type="text" name="last_name" placeholder="Last Name" required>
+            <input type="number" name="username" placeholder="Enter Mobile" required/>
+            <input type="email" name="email" placeholder="Email" required>
+            <label for="password" class="password-toggle">
+                <input type="password" name="password" id="reg-password" class="password input" onkeyup="checkpass()" placeholder="Enter Password" required/>
+                <img src="{% static 'estore/images/view.png' %}" alt="" class="icon-img view" id="reg-pass-eye" onclick=toggleRegisterPassword(false)>
+                <img src="{% static 'estore/images/hide.png' %}" alt="" class="icon-img hide" id="reg-pass-hide" onclick=toggleRegisterPassword(true)>
+            </label>
+            <small id="err-text">Passwords doesn't match</small>
+            <label for="password" class="password-toggle">
+                <input type="password" name="password" id="reg-conf-password" class="password input" onkeyup="checkpass()" placeholder="Confirm Password" required/>
+                <img src="{% static 'estore/images/view.png' %}" alt="" class="icon-img view" id="conf-pass-eye" onclick=toggleRegisterConfirmPassword(false)>
+                <img src="{% static 'estore/images/hide.png' %}" alt="" class="icon-img hide" id="conf-pass-hide" onclick=toggleRegisterConfirmPassword(true)>
+            </label>
+            <button type="submit" id="submit-btn" class="submit btn btn-blue" disabled>Submit</button>
+            <h3>OR</h3>
+            <button type="button" id="login-show" class="btn btn-blue">Login</button>
+        </form>
+    </div>
+
+    <script>
+        const signUpBtn = document.getElementById('sign-up-show');
+        const loginBtn = document.getElementById('login-show');
+        const confPass = document.getElementById('reg-conf-password');
+        const pass = document.getElementById('reg-password');
+        const errText = document.getElementById('err-text');
+        const submitBtn = document.getElementById('submit-btn');
+
+        signUpBtn.addEventListener('click', function(){
+            document.getElementById('register-modal').style.display = 'block';
+            document.getElementById('login-modal').style.display = 'none';
+        });
+        loginBtn.addEventListener('click', function(){
+            document.getElementById('register-modal').style.display = 'none';
+            document.getElementById('login-modal').style.display = 'block';
+        });
+        
+        function checkpass(){
+            if(pass.value!=confPass.value){
+                errText.style.display = 'block';
+                submitBtn.disabled = true;
+            }else{
+                errText.style.display = 'none';
+                submitBtn.disabled = false;
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function(){
+
+            // to set csrf value of the input fields
+            // since csrf token is already fetched at the beginning
+            // this input values should also have the same csrf token
+            //document.querySelectorAll('input[type=hidden]')[0].setAttribute('value',localStorage.getItem('csrfToken'));
+        });
+
+    </script>
+{% endblock %}
