@@ -39,16 +39,16 @@
 	</div>
 </div>
 <script>
-	// document.addEventListener('DOMContentLoaded', function () {
-	// 	let xhr = new XMLHttpRequest();
-	// 	xhr.open('GET', "/get-csrf-token/", true);
-	// 	xhr.onreadystatechange = function () {
-	// 		if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-	// 			let data = JSON.parse(xhr.responseText);
-	// 			localStorage.setItem('csrfToken', data.csrfToken);
-	// 		}
-	// 	}
-	// 	xhr.send();
-	// });
+	document.addEventListener('DOMContentLoaded', function () {
+		let xhr = new XMLHttpRequest();
+		xhr.open('GET', "/get-csrf-token/", true);
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+				let data = JSON.parse(xhr.responseText);
+				localStorage.setItem('csrfToken', data.csrfToken);
+			}
+		}
+		xhr.send();
+	});
 
 </script>

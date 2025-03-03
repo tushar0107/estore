@@ -28,6 +28,10 @@ import json
 def index(request):
 	return render(request,'home.html',context={'name':'Tushar','items':enumerate([1,2,3,4,5,6,7,8,9])})
 
+def get_csrf_token(request):
+    csrf_token = csrf.get_token(request)
+    return JsonResponse({'csrfToken': csrf_token})
+
 def product_list(request):
     query = request.GET.get('product', '')
     category = request.GET.get('categories', '')
