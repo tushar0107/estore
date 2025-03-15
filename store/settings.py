@@ -103,7 +103,7 @@ prod_config = {
     }
 }
 
-DATABASES = debug_config if DEBUG else prod_config
+DATABASES = debug_config if DEBUG==True else prod_config
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
