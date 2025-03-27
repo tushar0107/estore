@@ -21,7 +21,8 @@ from .settings import MEDIA_ROOT,MEDIA_URL,STATIC_ROOT,STATIC_URL,DEBUG
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('estore.urls'))
+    path('',include('estore.urls')),
+	path('chemically/',include('chemically.urls'))
 ]
 
 if DEBUG:

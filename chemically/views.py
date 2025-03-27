@@ -6,7 +6,7 @@ from django.core.serializers import serialize
 # Create your views here.
 
 def index(request):
-    return JsonResponse({'status':'dfgkaja'})
+    return JsonResponse({'app':'chemically'})
 
 def find_chemicals(request):    
     chemical = request.GET.get('chemical')

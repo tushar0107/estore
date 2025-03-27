@@ -28,7 +28,7 @@ SECRET_KEY = os.getenv('SECURITY_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
 
-ALLOWED_HOSTS = ['127.0.0.1','tushar07.pythonanywhere.com','tushar0107.github.io']
+ALLOWED_HOSTS = ['127.0.0.1','192.168.8.174','tushar07.pythonanywhere.com','tushar0107.github.io']
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 X_FRAME_OPTIONS = 'ALLOW-FROM https://tushar0107.github.io'
 
@@ -103,7 +103,7 @@ prod_config = {
     }
 }
 
-DATABASES = debug_config if DEBUG==True else prod_config
+DATABASES = debug_config
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
