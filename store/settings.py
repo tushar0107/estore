@@ -28,7 +28,7 @@ SECRET_KEY = os.getenv('SECURITY_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
 
-ALLOWED_HOSTS = ['127.0.0.1','192.168.8.174','tushar07.pythonanywhere.com','tushar0107.github.io']
+ALLOWED_HOSTS = ['127.0.0.1','192.168.8.174','192.168.1.11','tushar07.pythonanywhere.com','tushar0107.github.io']
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 X_FRAME_OPTIONS = 'ALLOW-FROM https://tushar0107.github.io'
 
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'estore',
     'chemically',
     'portfolio',
+    'musicapp',
 ]
 
 MIDDLEWARE = [
@@ -151,6 +152,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CORS_ORIGIN_WHITELIST = [
     'https://chemically.vercel.app',
     'http://127.0.0.1:3000',
+    'http://localhost:8100',
+    'http://localhost',
 	'https://tushar0107.github.io'
 ]
 
